@@ -78,15 +78,21 @@
 
 			   stats.each(function () {
 				   var $this = $(this);
+				   var countTo = $this.data('count');
 
-				   $({ Counter: 0 }).animate({ Counter: $this.text() }, {
+				   $({ Counter: 0 }).animate({ Counter: countTo }, {
 				   	duration: 4000,
 				   	easing: 'swing',
-				   	step: function (curValue) {
-				      	$this.text(Math.ceil(curValue));
-				    	}
-				  	});
-				});
+				   step: function (curValue) {
+				      	var displayValue = Math.ceil(curValue);
+				      	if (countTo >= 1000) {
+				      		// Format large numbers with commas
+				      		displayValue = displayValue.toLocaleString();
+				      	}
+				      	$this.text(displayValue + '+');
+			        }
+			    });
+			});
 
        	} 
 
